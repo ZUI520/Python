@@ -15,7 +15,7 @@ headers = {
 class UrlSpider():
    
     def get_html(self,root_url):
-        res = requests.get(url=root_url,headers=headers,timeout=5).text
+        res = requests.get(url=root_url,headers=headers,timeout=3).text
         html = BeautifulSoup(res,'html.parser')
         div = html.find('div',id="search")
         lis = div.find_all("div",class_="g")
@@ -33,7 +33,10 @@ class UrlSpider():
                 url_b.append(i)
 
         print(str(url_b).replace("['","").replace("]","").replace(", ","\n").replace("'",""))
-            
+        with open("res_url.txt","a+") as f:
+            f.write(str(url_b).replace("['","").replace("]","").replace(", ","\n").replace("'",""))
+            f.write("\n")
+            f.close()
     
     
 
